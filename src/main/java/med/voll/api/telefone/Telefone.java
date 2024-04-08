@@ -13,10 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Telefone {
     Integer ddd;
-    Integer numeroTelefone;
+    Integer numero_telefone;
 
     public Telefone(DadosTelefone dados) {
         this.ddd = dados.ddd();
-        this.numeroTelefone = dados.numeroTelefone();
+        this.numero_telefone = dados.numero_telefone();
     }
 }
