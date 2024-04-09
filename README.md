@@ -7,6 +7,8 @@ Nesse projeto fora desenvolvida uma api com o CRUD de médicos e pacientes. Para
 
 O métodos do CRUD foram escritos em dois controllers (MédicoController e PacienteController)
 
+Ferramenta de gerenciamento: MAVEN
+
 Dependências usadas: 
 SPRING BOOT STARTER WEB
 LOMBOK
