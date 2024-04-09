@@ -1,10 +1,7 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.medico.DadosCadastroMedico;
-import med.voll.api.medico.DadosListagemMedicos;
-import med.voll.api.medico.Medico;
-import med.voll.api.medico.MedicoRepository;
+import med.voll.api.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,12 +32,42 @@ public class MedicoController {
 //
 //    }
 
+      //lista todos os médicos
+//    @GetMapping("/listar-medicos")
+//    public Page<DadosListagemMedicos> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable page){
+//        //esse método retorna uma lista de médicos paginada
+//        //o método findAll recebe o atributo page e automaticamente sabe que tem de retornar uma lista paginada
+//        var listaMedicos = this.medicoRepository.findAll(page).map(DadosListagemMedicos::new);
+//        return listaMedicos;
+//    }
+
+    // lista os médicos ativos
     @GetMapping("/listar-medicos")
     public Page<DadosListagemMedicos> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable page){
-        //esse método retorna uma lista de médicos paginada
-        //o método findAll recebe o atributo page e automaticamente sabe que tem de retornar uma lista paginada
-        var listaMedicos = this.medicoRepository.findAll(page).map(DadosListagemMedicos::new);
-        return listaMedicos;
+        var listaMedicosAtivos = this.medicoRepository.findAllByAtivoTrue(page).map(DadosListagemMedicos::new);
+        return listaMedicosAtivos;
+    }
+
+
+    @PutMapping("/atualizar-medico")
+    @Transactional
+    public void atulizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
+        var medico = medicoRepository.getReferenceById(dados.id());
+        medico.atualizarInformações(dados);
+    }
+
+    //exclusão física
+//    @DeleteMapping("/excluir-medico/{id}")
+//    public void excluir(@PathVariable Long id){
+//        medicoRepository.deleteById(id);
+//    }
+
+    //Exclusão lógica
+    @DeleteMapping("/excluir-medico/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id){
+        var medico = medicoRepository.getReferenceById(id);
+        medico.excluir();
     }
 
 

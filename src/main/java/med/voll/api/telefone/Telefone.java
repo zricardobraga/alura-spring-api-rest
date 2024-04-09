@@ -19,4 +19,13 @@ public class Telefone {
         this.ddd = dados.ddd();
         this.numero_telefone = dados.numero_telefone();
     }
+
+    public void atualizarInformacoes(DadosTelefone dados) {
+        if (dados.ddd() != null) {
+            this.ddd = dados.ddd();
+        }
+        if (dados.numero_telefone() != null) {
+            this.numero_telefone = dados.numero_telefone();
+        }
+    }
 }
